@@ -1,0 +1,21 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": true
+    },
+    "transform": {
+      "decoratorMetadata": true
+    },
+    "target": "esnext",
+    "loose": false
+  },
+  "module": {
+    "type": "es6",
+    "strict": false
+  },
+  "sourceMaps": true,
+  "outDir": "./dist",
+  "exclude": ["dist", "node_modules"]
+}
