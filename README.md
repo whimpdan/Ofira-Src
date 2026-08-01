@@ -186,9 +186,11 @@ This project is open-source and released under the [ISC License](LICENSE).
 
 ---
 
-## 📜 Notice & Credits
+## 📜 Credits
 
 > [!NOTE]  
-> The current version of the so called NOTING BOT is still running on this source code. 
 > This codebase was designed and developed by **Boyfie**, he is the original developer and creator of the project. Any existing functionality and core architecture are based on his work.
 
+## 🧾 Copy Cat
+
+> The current version of the so called NOTING BOT is still running on this source code.
