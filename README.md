@@ -1,196 +1,253 @@
 <div align="center">
 
-# 🎵 Ofira Src — Advanced Discord Music Bot & Hybrid Handler
+# Ofira Source
+### Advanced Discord Music Bot Framework
 
-*A high-performance, feature-packed Discord Music Bot framework built with TypeScript, Discord.js v14, Lavalink, and Hybrid Sharding.*
+A scalable Discord music bot framework built with **TypeScript**, **Discord.js v14**, **Lavalink**, and **Hybrid Sharding**, designed for high-performance music playback and large-scale deployments.
 
 [![Node.js](https://img.shields.io/badge/Node.js-v18%2B-green.svg?style=for-the-badge&logo=node.js)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Discord.js](https://img.shields.io/badge/Discord.js-v14-5865F2.svg?style=for-the-badge&logo=discord)](https://discord.js.org/)
-[![Lavalink](https://img.shields.io/badge/Lavalink-Client_v2.5-red.svg?style=for-the-badge&logo=youtube)](https://github.com/lavalink-devs/Lavalink)
+[![Lavalink](https://img.shields.io/badge/Lavalink-Client_v2.5-red.svg?style=for-the-badge)](https://github.com/lavalink-devs/Lavalink)
 [![License](https://img.shields.io/badge/License-ISC-yellow.svg?style=for-the-badge)](LICENSE)
 
 </div>
 
 ---
 
-## 🌟 Key Features
+# Overview
 
-- 🎧 **Lavalink Audio Engine**: Seamless, high-quality audio playback using `lavalink-client` v2 with multi-node failover and reconnection handling.
-- ⚡ **SWC Fast Compiler**: Supercharged compilation speed with `@swc/core` and `@swc/cli` for rapid development and production builds.
-- 🚀 **Hybrid Sharding System**: Powered by `discord-hybrid-sharding` with ClusterManager and HeartbeatManager to seamlessly scale across thousands of guilds.
-- 🎛️ **Audio Filters Suite**: Real-time DSP audio filters including **Karaoke**, **Nightcore**, **Vaporwave**, **Tremolo**, **Vibrato**, **Lowpass**, and **3D Rotation**.
-- 🔀 **Rich Music Controls**: Play, Search, Queue management, Autoplay, Volume control, Loop modes, Track removal, Seek, and 24/7 Voice Channel Mode.
-- 🛡️ **MongoDB Integration**: Guild configuration, prefix management, ignore-channels list, user profiles, premium subscription system, and no-prefix access control.
-- 📊 **Webhook Analytics & Logging**: Dedicated webhooks for Command Logs, Error Tracebacks, Server Join/Leave events, and Cluster lifecycle events.
+Ofira Source is a production-ready Discord music bot framework focused on scalability, maintainability, and performance. Built on Discord.js v14 and Lavalink, it provides a modular architecture with hybrid sharding, efficient audio playback, and an organized command system suitable for both personal and large public deployments.
 
 ---
 
-## 📂 Project Architecture
+# Features
 
-```plain
-Ofira Src/
+- High-performance audio playback powered by **lavalink-client v2**
+- Hybrid sharding using **discord-hybrid-sharding**
+- SWC-based compilation for significantly faster builds
+- Multi-node Lavalink support with automatic reconnection and failover
+- Real-time audio filters including Karaoke, Nightcore, Vaporwave, Tremolo, Vibrato, Lowpass, and Rotation
+- Queue management, autoplay, looping, seeking, volume control, and 24/7 mode
+- MongoDB integration for persistent guild and user configuration
+- Premium and no-prefix management system
+- Comprehensive webhook logging for commands, errors, guild events, and cluster lifecycle
+- Modular command, event, and database architecture
+- Production-ready TypeScript codebase
+
+---
+
+# Project Structure
+
+```text
+Ofira-Source/
 ├── src/
-│   ├── index.ts              # Cluster Manager & Hybrid Sharding Entry Point
-│   ├── bot.ts                # Client Instantiation & Bot Initialization
+│   ├── index.ts
+│   ├── bot.ts
 │   ├── config/
-│   │   ├── config.ts         # Main Bot Settings (Colors, Webhooks, Links)
-│   │   ├── emoji.ts          # Emoji Definitions
-│   │   ├── lavalink.ts       # Lavalink Nodes Configuration
-│   │   └── token.ts          # Discord Bot Secret Token
-│   ├── structures/           # Core Bot Engine Classes
-│   │   ├── client.ts         # Extended Discord Client & Lavalink Manager
-│   │   ├── command.ts        # Modular Command Builder Structure
-│   │   ├── context.ts        # Interaction & Message Context Abstraction
-│   │   ├── event.ts          # Event Listener Base Structure
-│   │   ├── functions.ts      # Utility Helpers & Embed Formatters
-│   │   └── logger.ts         # Styled Console Logger
-│   ├── db/                   # Mongoose Schemas & Database Models
-│   ├── events/               # Discord & Lavalink Event Handlers
-│   └── commands/             # Command Handlers Organized by Category
-│       ├── music/            # Play, Queue, Skip, Search, Autoplay, etc.
-│       ├── filters/          # Karaoke, Nightcore, Vaporwave, Vibrato, etc.
-│       ├── configuration/    # Custom Prefix, 24/7 Mode, Ignore Channels
-│       ├── dev/              # Deploy, Node Status, Premium, No-Prefix Manager
-│       └── utility/          # Help, Ping, Profile, Stats, Uptime, Support
-├── swc.config.json           # SWC Compiler Configuration
-├── tsconfig.json             # TypeScript Configuration
-└── package.json              # Project Dependencies & Scripts
+│   ├── commands/
+│   │   ├── music/
+│   │   ├── filters/
+│   │   ├── configuration/
+│   │   ├── utility/
+│   │   └── dev/
+│   ├── db/
+│   ├── events/
+│   └── structures/
+├── swc.config.json
+├── tsconfig.json
+└── package.json
 ```
 
 ---
 
-## 🚀 Commands Overview
+# Command Categories
 
-### 🎶 Music Commands (`src/commands/music/`)
-| Command | Description |
-| :--- | :--- |
-| `play` | Search and play tracks/playlists from YouTube, Spotify, etc. |
-| `search` | Interactively search and select tracks to queue. |
-| `queue` | Display the current guild song queue and playback state. |
-| `nowplaying` | Show details and progress of the currently playing track. |
-| `pause` / `resume` | Pause or resume current audio playback. |
-| `skip` | Skip the current track to play the next song in queue. |
-| `stop` | Stop playback, clear the queue, and leave the voice channel. |
-| `seek` | Jump to a specific time timestamp in the playing track. |
-| `volume` | Adjust the player volume (0% - 150%). |
-| `loop` | Toggle repeat modes: Off, Track, or Queue. |
-| `shuffle` | Randomize the order of tracks in the queue. |
-| `autoplay` | Enable or disable automatic queue recommendations. |
-| `clearqueue` | Remove all queued tracks without stopping playback. |
-| `remove` | Remove a specific song from the queue by position. |
-| `join` / `leave` | Summon or disconnect the bot from your voice channel. |
+## Music
 
-### 🎛️ Audio Filters (`src/commands/filters/`)
 | Command | Description |
-| :--- | :--- |
-| `clear` | Reset all active audio DSP filters back to default. |
-| `nightcore` | Speed up audio tempo and raise pitch. |
-| `vaporwave` | Slow down audio tempo and lower pitch. |
-| `karaoke` | Filter vocals out for a karaoke singing experience. |
-| `lowpass` | Suppress high frequencies for a muffled low-bass sound. |
-| `tremolo` | Apply volume oscillation / trembling effect. |
-| `vibrato` | Apply pitch modulation / vibrato effect. |
-| `rotation` | Apply 3D spatial rotating audio panning effect. |
-
-### ⚙️ Configuration (`src/commands/configuration/`)
-| Command | Description |
-| :--- | :--- |
-| `prefix` | Set or reset the custom command prefix for your guild. |
-| `247` | Toggle 24/7 mode to keep the bot connected to voice channels. |
-| `ignoreChannelAdd` | Add a channel to the bot's ignored command list. |
-| `ignoreChannelRemove` | Remove a channel from the ignored command list. |
-| `ignoreChannelList` | View all ignored channels in the current guild. |
-
-### 🛠️ Utility & Developer (`src/commands/utility/` & `dev/`)
-| Command | Description |
-| :--- | :--- |
-| `help` | Interactive command list and detailed usage guide. |
-| `ping` | Check Bot latency, WebSocket ping, and Database latency. |
-| `stats` | View cluster stats, RAM usage, Uptime, and Node status. |
-| `profile` | Display user profile, premium status, and permissions. |
-| `noprefix` | *(Dev)* Manage global no-prefix user access. |
-| `premium` | *(Dev)* Manage guild and user premium subscriptions. |
-| `node` | *(Dev)* Inspect connected Lavalink node status and stats. |
+|---------|-------------|
+| `play` | Search and play tracks or playlists |
+| `search` | Interactive track search |
+| `queue` | Display the current queue |
+| `nowplaying` | Show information about the current track |
+| `pause` / `resume` | Pause or resume playback |
+| `skip` | Skip the current track |
+| `stop` | Stop playback and clear the queue |
+| `seek` | Seek to a specific timestamp |
+| `volume` | Adjust playback volume |
+| `loop` | Toggle loop modes |
+| `shuffle` | Shuffle the queue |
+| `autoplay` | Toggle autoplay |
+| `clearqueue` | Remove every queued track |
+| `remove` | Remove a track by position |
+| `join` / `leave` | Connect or disconnect from a voice channel |
 
 ---
 
-## 🛠️ Setup & Installation
+## Audio Filters
 
-### 1. Prerequisites
-- **Node.js**: `v18.0.0` or higher
-- **MongoDB**: Active MongoDB connection URI
-- **Lavalink**: At least one active Lavalink v4 server node
+| Command | Description |
+|---------|-------------|
+| `clear` | Reset all active filters |
+| `nightcore` | Increase speed and pitch |
+| `vaporwave` | Lower speed and pitch |
+| `karaoke` | Reduce vocals |
+| `lowpass` | Apply a low-pass filter |
+| `tremolo` | Apply tremolo effect |
+| `vibrato` | Apply vibrato effect |
+| `rotation` | Apply stereo rotation |
 
-### 2. Installation
+---
 
-Clone the repository and install dependencies:
+## Configuration
+
+| Command | Description |
+|---------|-------------|
+| `prefix` | Configure a custom guild prefix |
+| `247` | Toggle persistent voice connection |
+| `ignoreChannelAdd` | Ignore a channel |
+| `ignoreChannelRemove` | Remove an ignored channel |
+| `ignoreChannelList` | View ignored channels |
+
+---
+
+## Utility & Developer
+
+| Command | Description |
+|---------|-------------|
+| `help` | Display available commands |
+| `ping` | Display bot latency |
+| `stats` | View cluster and system statistics |
+| `profile` | View user profile information |
+| `noprefix` | Manage no-prefix users |
+| `premium` | Manage premium subscriptions |
+| `node` | View Lavalink node statistics |
+
+---
+
+# Requirements
+
+- Node.js **18+**
+- MongoDB
+- Lavalink v4
+
+---
+
+# Installation
+
+Clone the repository.
 
 ```bash
 git clone https://github.com/whimpdan/Ofira-Src.git
 cd Ofira-Src
+```
+
+Install dependencies.
+
+```bash
 npm install
 ```
 
-### 3. Configuration
+---
 
-1. Set your Discord Bot Token in `src/config/token.ts`:
-   ```typescript
-   export default {
-     token: "YOUR_DISCORD_BOT_TOKEN_HERE"
-   };
-   ```
+# Configuration
 
-2. Configure main settings in `src/config/config.ts`:
-   - Specify your MongoDB URI (`mongo: "mongodb+srv://..."`)
-   - Add Bot Owner ID(s) (`owners: ["YOUR_DISCORD_USER_ID"]`)
-   - Configure Webhook URLs for logging (command logs, errors, join/leave logs)
+Configure the following before starting the bot.
 
-3. Update Lavalink Node details in `src/config/lavalink.ts`:
-   ```typescript
-   export default {
-     nodes: [
-       {
-         id: "node-01",
-         host: "YOUR_LAVALINK_HOST",
-         port: 80,
-         authorization: "YOUR_LAVALINK_PASSWORD",
-         secure: false,
-       },
-     ],
-   };
-   ```
+### Discord Token
 
-### 4. Build & Run
+`src/config/token.ts`
 
-- **Build the TypeScript code using SWC**:
-  ```bash
-  npm run build
-  ```
+```ts
+export default {
+  token: "YOUR_BOT_TOKEN"
+};
+```
 
-- **Start the Sharded Bot Production Engine**:
-  ```bash
-  npm run start
-  ```
+### Main Configuration
 
-- **Development Mode (Watch mode)**:
-  ```bash
-  npm run dev
-  ```
+`src/config/config.ts`
+
+Configure:
+
+- MongoDB connection URI
+- Owner IDs
+- Webhook URLs
+- Bot links
+- Embed colors
+- Additional project settings
+
+### Lavalink Nodes
+
+`src/config/lavalink.ts`
+
+```ts
+export default {
+  nodes: [
+    {
+      id: "node-01",
+      host: "YOUR_HOST",
+      port: 80,
+      authorization: "YOUR_PASSWORD",
+      secure: false,
+    },
+  ],
+};
+```
 
 ---
 
-## 📄 License
+# Running the Project
 
-This project is open-source and released under the [ISC License](LICENSE).
+Build the project.
+
+```bash
+npm run build
+```
+
+Start the production build.
+
+```bash
+npm run start
+```
+
+Start in development mode.
+
+```bash
+npm run dev
+```
 
 ---
 
-## 📜 Credits
+# Technology Stack
 
-> [!NOTE]  
-> This codebase was designed and developed by **Boyfie**, he is the original developer and creator of the project. Any existing functionality and core architecture are based on his work.
+- TypeScript
+- Discord.js v14
+- Lavalink Client v2
+- MongoDB
+- Mongoose
+- discord-hybrid-sharding
+- SWC
+- Node.js
 
-## 🧾 Copy Cat
+---
+
+# License
+
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+# Credits
+
+> This project was originally designed and developed by **Boyfie**. The core architecture and initial implementation are based on his work.
+
+---
+# Copy Cat
 
 > The current version of the so called NOTING BOT is still running on this source code.
+
+# Notice
+
+This repository is provided for educational and development purposes. Please respect the original author's work and applicable open-source licensing terms when using or modifying this project.
